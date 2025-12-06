@@ -139,3 +139,20 @@ After running `npm run seed` in the backend:
 
 Mini Course Subscription App - Black Friday Edition
 
+## 📸 Screenshots
+
+### Home Page - Course Listing
+![Home Page](./screenshots/Home.png)
+
+### Signup Page
+![Signup Page](./screenshots/SignIn.png)
+
+### Login/Signup Page
+![Login Page](./screenshots/Login.png)
+
+### Course Detail Page
+![Course Detail](./screenshots/CourseDetail.png)
+
+### My Courses Page
+![My Courses](./screenshots/MyCourses.png)
+
