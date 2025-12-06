@@ -24,19 +24,24 @@ const connectDB = async () => {
         if (!cached.promise) {
             const opts = {
                 bufferCommands: false,
+                serverSelectionTimeoutMS: 5000,
+                socketTimeoutMS: 45000,
             };
 
             cached.promise = mongoose.connect(uri, opts).then((mongoose) => {
+                cached.conn = mongoose;
                 if (process.env.NODE_ENV !== 'production') {
                     console.log('✅ MongoDB Connected Successfully!');
                     console.log(`   Database: ${mongoose.connection.name}`);
                 }
                 return mongoose;
+            }).catch((error) => {
+                cached.promise = null;
+                throw error;
             });
         }
 
-        cached.conn = await cached.promise;
-        return cached.conn;
+        return await cached.promise;
         
     } catch (error) { 
         cached.promise = null;

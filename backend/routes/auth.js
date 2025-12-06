@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const ensureDBConnection = require('../middleware/dbConnection');
 
 // Generate JWT token
 const generateToken = (userId) => {
@@ -13,7 +14,7 @@ const generateToken = (userId) => {
 };
 
 // POST /auth/signup
-router.post('/signup', async (req, res) => {
+router.post('/signup', ensureDBConnection, async (req, res) => {
     try {
         const { email, password, name } = req.body;
 
@@ -73,7 +74,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // POST /auth/login
-router.post('/login', async (req, res) => {
+router.post('/login', ensureDBConnection, async (req, res) => {
     try {
         const { email, password } = req.body;
 

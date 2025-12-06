@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const mongoose = require('mongoose')
 require('dotenv').config()
 const connectDB = require('./config/db')
 const app = express()
@@ -55,15 +56,49 @@ if (process.env.VERCEL !== '1') {
 } else {
     // For Vercel serverless, connect on first request
     let dbConnected = false
+    let dbConnecting = false
+    
     app.use(async (req, res, next) => {
-        if (!dbConnected) {
+        // Skip connection check for health check endpoint
+        if (req.path === '/') {
+            return next();
+        }
+        
+        if (!dbConnected && !dbConnecting) {
+            dbConnecting = true
             try {
                 await connectDB()
                 dbConnected = true
+                dbConnecting = false
             } catch (error) {
+                dbConnecting = false
                 console.error('Database connection error:', error)
+                return res.status(500).json({
+                    success: false,
+                    message: 'Database connection failed',
+                    error: error.message
+                })
+            }
+        } else if (dbConnecting) {
+            // Wait for connection to complete
+            while (dbConnecting) {
+                await new Promise(resolve => setTimeout(resolve, 100))
             }
         }
+        
+        // Ensure connection is ready before proceeding
+        if (mongoose.connection.readyState !== 1) {
+            try {
+                await connectDB()
+            } catch (error) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Database connection failed',
+                    error: error.message
+                })
+            }
+        }
+        
         next()
     })
 }

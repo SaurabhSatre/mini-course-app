@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
+const ensureDBConnection = require('../middleware/dbConnection');
 const Subscription = require('../models/Subscription');
 const Course = require('../models/Course');
 
 // POST /subscribe
-router.post('/', auth, async (req, res) => {
+router.post('/', ensureDBConnection, auth, async (req, res) => {
     try {
         const { courseId, promoCode } = req.body;
         const userId = req.userId;
@@ -118,7 +119,7 @@ router.post('/', auth, async (req, res) => {
 });
 
 // GET /my-courses - return all courses the authenticated user subscribed to
-router.get('/my-courses', auth, async (req, res) => {
+router.get('/my-courses', ensureDBConnection, auth, async (req, res) => {
     try {
         const userId = req.userId;
 

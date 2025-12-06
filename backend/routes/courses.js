@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Course = require('../models/Course');
+const ensureDBConnection = require('../middleware/dbConnection');
 
 // GET /courses - fetch all courses
-router.get('/', async (req, res) => {
+router.get('/', ensureDBConnection, async (req, res) => {
     try {
         const courses = await Course.find().sort({ createdAt: -1 });
         res.json({
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST /courses - create a new course
-router.post('/', async (req, res) => {
+router.post('/', ensureDBConnection, async (req, res) => {
     try {
         const { title, description, price, image } = req.body;
 
@@ -74,7 +75,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET /courses/:id - fetch one course by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', ensureDBConnection, async (req, res) => {
     try {
         const course = await Course.findById(req.params.id);
         
