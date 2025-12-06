@@ -66,70 +66,6 @@ mini-course-app/
 └── README.md
 ```
 
-## 🛠️ Setup Instructions
-
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB Atlas account (or local MongoDB)
-- Git
-
-### Backend Setup
-
-1. Navigate to backend directory:
-   ```bash
-   cd backend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Create `.env` file:
-   ```env
-   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database?retryWrites=true&w=majority
-   JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
-   FRONTEND_URL=http://localhost:3000
-   PORT=8080
-   NODE_ENV=development
-   ```
-
-   **Important**: URL encode special characters in password:
-   - `@` → `%40`
-   - `#` → `%23`
-   - `%` → `%25`
-
-4. Seed the database:
-   ```bash
-   npm run seed
-   ```
-
-5. Start the server:
-   ```bash
-   npm start
-   ```
-
-### Frontend Setup
-
-1. Navigate to frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Create `.env` file:
-   ```env
-   REACT_APP_API_URL=http://localhost:8080
-   ```
-
-4. Start the development server:
-   ```bash
-   npm start
-   ```
 
 ## 📱 Pages
 
@@ -192,56 +128,6 @@ After running `npm run seed` in the backend:
 - `POST /subscribe` - Subscribe to a course (requires auth)
 - `GET /subscribe/my-courses` - Get user's courses (requires auth)
 
-## 🚀 Deployment to Vercel
-
-### Backend Deployment
-
-1. Install Vercel CLI:
-   ```bash
-   npm i -g vercel
-   ```
-
-2. Navigate to backend directory:
-   ```bash
-   cd backend
-   ```
-
-3. Deploy:
-   ```bash
-   vercel
-   ```
-
-4. Add Environment Variables in Vercel Dashboard:
-   - `MONGODB_URI`
-   - `JWT_SECRET`
-   - `FRONTEND_URL` (your frontend Vercel URL)
-   - `NODE_ENV=production`
-
-### Frontend Deployment
-
-1. Navigate to frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Deploy:
-   ```bash
-   vercel
-   ```
-
-3. Add Environment Variable:
-   - `REACT_APP_API_URL` (your backend Vercel URL)
-
-## 📝 Important Notes
-
-1. **MongoDB Password Encoding**: Special characters in MongoDB password must be URL-encoded in the connection string.
-
-2. **Environment Variables**: Make sure to set all required environment variables in Vercel dashboard for both frontend and backend.
-
-3. **CORS**: Backend is configured to accept requests from the frontend URL specified in `FRONTEND_URL`.
-
-4. **Mock Payments**: All payments are mock-based. No real payment integration is required.
-
 ## 🎨 UI Features
 
 - Clean and modern design with TailwindCSS
@@ -251,15 +137,5 @@ After running `npm run seed` in the backend:
 - Smooth transitions and hover effects
 - Protected routes with authentication
 
-## 📄 License
-
-ISC
-
-## 👤 Author
-
 Mini Course Subscription App - Black Friday Edition
-
----
-
-**Note**: This is a mock application for demonstration purposes. No real payments are processed.
 
